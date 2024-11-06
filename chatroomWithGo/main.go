@@ -1,6 +1,12 @@
 package main
 
-import "net"
+import (
+	"fmt"
+	"net"
+	"strconv"
+)
+
+var id int = 1
 
 func main() {
 	println("This is our chatroom")
@@ -9,6 +15,7 @@ func main() {
 
 	if err != nil {
 		println(err)
+		return
 	}
 
 	// Accepting connections
@@ -19,6 +26,7 @@ func main() {
 		}
 		// Create a go routine to handleConnection
 		go handleConnection(conn)
+
 	}
 
 }
@@ -29,6 +37,8 @@ func handleConnection(conn net.Conn) {
 	// defer is a keyword that schedules a function to be executed after the surounding code is finished, whether by error or just finishe
 
 	defer conn.Close()
+	print(fmt.Sprintf("Client %v connected", strconv.Itoa(id)))
+	id++
 	// Read the incoming data
 	buf := make([]byte, 1024)
 	for {

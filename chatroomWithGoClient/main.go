@@ -11,6 +11,7 @@ import (
 func main() {
 	// Connect to the server
 	conn, err := net.Dial("tcp", "localhost:8080")
+
 	if err != nil {
 		println(err)
 		return
